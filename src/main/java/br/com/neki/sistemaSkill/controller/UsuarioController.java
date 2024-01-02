@@ -31,13 +31,13 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<UsuarioResponseDTO>> obterTodos() {
         return ResponseEntity.ok(usuarioService.obterTodos());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<UsuarioResponseDTO> obterPorId(@PathVariable long id) {
         return ResponseEntity.ok(usuarioService.obterPorId(id));
     }
@@ -52,6 +52,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable long id, @RequestBody UsuarioRequestDTO usuario) {
         UsuarioResponseDTO usuarioAtualizado = usuarioService.atualizar(id, usuario);
 
@@ -61,6 +62,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> deletar(@PathVariable long id) {
         usuarioService.deletar(id);
 

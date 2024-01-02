@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +20,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import br.com.neki.sistemaSkill.enums.Perfil;
 import br.com.neki.sistemaSkill.model.exceptions.ResourceBadRequestException;
 
 @Entity
@@ -37,9 +39,7 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    private Perfil perfil;
-
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Skill> skills;
 
@@ -47,12 +47,11 @@ public class Usuario implements UserDetails {
 
     }
 
-    public Usuario(Long id, String nome, String login, String senha, Perfil perfil, List<Skill> skills) {
+    public Usuario(Long id, String nome, String login, String senha, List<Skill> skills) {
         this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.perfil = perfil;
         this.skills = skills;
     }
 
@@ -88,14 +87,6 @@ public class Usuario implements UserDetails {
         this.senha = senha;
     }
 
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
-    }
-
     public List<Skill> getSkills() {
         return skills;
     }
@@ -106,11 +97,11 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<String> perfis = new ArrayList<>();
-        perfis.add(perfil.toString());
+        List<String> authorities = new ArrayList<>();
+        authorities.add("USER");
 
-        return perfis.stream()
-                .map(per -> new SimpleGrantedAuthority(per))
+        return authorities.stream()
+                .map(auth -> new SimpleGrantedAuthority(auth))
                 .collect(Collectors.toList());
     }
 

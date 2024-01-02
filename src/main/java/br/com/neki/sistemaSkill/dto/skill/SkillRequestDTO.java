@@ -1,6 +1,8 @@
 package br.com.neki.sistemaSkill.dto.skill;
 
-import br.com.neki.sistemaSkill.model.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.neki.sistemaSkill.dto.usuario.UsuarioResponseDTO;
 
 public class SkillRequestDTO {
 
@@ -8,7 +10,8 @@ public class SkillRequestDTO {
     private String descricao;
     private Integer level;
     private String imagem;
-    private Usuario usuario;
+    @JsonIgnore
+    private UsuarioResponseDTO usuario;
 
     public String getNome() {
         return nome;
@@ -42,11 +45,11 @@ public class SkillRequestDTO {
         this.imagem = imagem;
     }
 
-    public Usuario getUsuario() {
+    public UsuarioResponseDTO getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(UsuarioResponseDTO usuario) {
         this.usuario = usuario;
     }
 
