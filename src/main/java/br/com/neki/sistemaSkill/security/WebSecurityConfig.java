@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity // aqui informo que é uma classe se configuracao de seguranca do springSecurity
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -67,9 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                  * aqui vamos informar
                  */
                 .antMatchers(HttpMethod.POST, "/usuarios", "/usuarios/login")
-                .permitAll() // informo que todos podem acessar esses endpontis sem autorisacao
+                .permitAll()
                 .anyRequest()
-                .authenticated();// digo que qualquer outro endpont nao mapeado acima deve cobrar autenticacao
+                .authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }

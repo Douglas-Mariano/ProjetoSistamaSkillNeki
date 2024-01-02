@@ -1,6 +1,5 @@
 package br.com.neki.sistemaSkill.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -88,11 +87,10 @@ public class UsuarioService {
 
     public void deletar(long id) {
 
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        obterPorId(id);
 
-        if (usuario.isPresent()) {
-            usuarioRepository.save(usuario.get());
-        }
+        usuarioRepository.deleteById(id);
+
     }
 
     public UsuarioResponseDTO obterPorLogin(String login) {

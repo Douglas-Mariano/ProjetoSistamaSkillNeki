@@ -35,6 +35,10 @@ public class Usuario implements UserDetails {
 
     private Perfil perfil;
 
+    public Usuario() {
+        
+    }
+
     public Usuario(Long id, String nome, String login, String senha, Perfil perfil) {
         this.id = id;
         this.nome = nome;
