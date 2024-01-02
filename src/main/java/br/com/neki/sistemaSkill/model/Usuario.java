@@ -9,9 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.neki.sistemaSkill.enums.Perfil;
 import br.com.neki.sistemaSkill.model.exceptions.ResourceBadRequestException;
@@ -35,16 +39,21 @@ public class Usuario implements UserDetails {
 
     private Perfil perfil;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
+    private List<Skill> skills;
+
     public Usuario() {
-        
+
     }
 
-    public Usuario(Long id, String nome, String login, String senha, Perfil perfil) {
+    public Usuario(Long id, String nome, String login, String senha, Perfil perfil, List<Skill> skills) {
         this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.perfil = perfil;
+        this.skills = skills;
     }
 
     public Long getId() {
@@ -85,6 +94,14 @@ public class Usuario implements UserDetails {
 
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
 
     @Override

@@ -3,16 +3,7 @@ package br.com.neki.sistemaSkill.dto.usuario;
 
 public class UsuarioRequestDTO extends UsuarioBaseDTO {
 
-    private String login;
     private String senha;
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getSenha() {
         return senha;

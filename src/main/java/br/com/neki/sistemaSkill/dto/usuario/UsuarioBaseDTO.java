@@ -6,6 +6,7 @@ public abstract class UsuarioBaseDTO {
 
     private String nome;
     private Perfil perfil;
+    private String login;
 
     public String getNome() {
         return nome;
@@ -23,4 +24,11 @@ public abstract class UsuarioBaseDTO {
         this.perfil = perfil;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 }
