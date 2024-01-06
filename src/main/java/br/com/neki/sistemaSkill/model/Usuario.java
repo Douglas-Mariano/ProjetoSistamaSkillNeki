@@ -39,7 +39,7 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<SkillsUsuario> skills;
 

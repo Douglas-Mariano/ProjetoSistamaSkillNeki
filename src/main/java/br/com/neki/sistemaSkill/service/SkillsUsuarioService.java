@@ -78,8 +78,20 @@ public class SkillsUsuarioService {
 
         obterPorId(id);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String usuarioLogado = authentication.getName();
+
+        Optional<Usuario> optUsuario = usuarioRepository.findByLogin(usuarioLogado);
+        if (optUsuario.isEmpty()) {
+            throw new BadCredentialsException("Usuário ou senha invalidos");
+        }
+
+        Usuario usuario = optUsuario.get();
+
         SkillsUsuario skillsUsuario = modelMapper.map(skillsUsuarioRequest, SkillsUsuario.class);
         skillsUsuario.setId(id);
+
+        skillsUsuario.setUsuario(usuario);
 
         return modelMapper.map(skillsUsuarioRepository.save(skillsUsuario), SkillsUsuarioResponseDTO.class);
     }
