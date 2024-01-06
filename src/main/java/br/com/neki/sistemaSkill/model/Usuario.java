@@ -41,13 +41,13 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Skill> skills;
+    private List<SkillsUsuario> skills;
 
     public Usuario() {
 
     }
 
-    public Usuario(Long id, String nome, String login, String senha, List<Skill> skills) {
+    public Usuario(Long id, String nome, String login, String senha, List<SkillsUsuario> skills) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -87,11 +87,11 @@ public class Usuario implements UserDetails {
         this.senha = senha;
     }
 
-    public List<Skill> getSkills() {
+    public List<SkillsUsuario> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(List<SkillsUsuario> skills) {
         this.skills = skills;
     }
 

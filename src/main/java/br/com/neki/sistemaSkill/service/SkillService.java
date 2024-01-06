@@ -8,27 +8,19 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.neki.sistemaSkill.dto.skill.SkillRequestDTO;
 import br.com.neki.sistemaSkill.dto.skill.SkillResponseDTO;
 import br.com.neki.sistemaSkill.model.Skill;
-import br.com.neki.sistemaSkill.model.Usuario;
 import br.com.neki.sistemaSkill.model.exceptions.ResourceNotFoundException;
 import br.com.neki.sistemaSkill.repository.SkillRepository;
-import br.com.neki.sistemaSkill.repository.UsuarioRepository;
 
 @Service
 public class SkillService {
 
     @Autowired
     private SkillRepository skillRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -53,21 +45,9 @@ public class SkillService {
     @Transactional
     public SkillResponseDTO adcionar(SkillRequestDTO skillRequest) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String usuarioLogado = authentication.getName();
-
-        Optional<Usuario> optUsuario = usuarioRepository.findByLogin(usuarioLogado);
-        if (optUsuario.isEmpty()) {
-            throw new BadCredentialsException("Usuário ou senha invalidos");
-        }
-
-        Usuario usuario = optUsuario.get();
-
         Skill skill = modelMapper.map(skillRequest, Skill.class);
 
         skill.setId(0L);
-
-        skill.setUsuario(usuario);
 
         skill = skillRepository.save(skill);
 
