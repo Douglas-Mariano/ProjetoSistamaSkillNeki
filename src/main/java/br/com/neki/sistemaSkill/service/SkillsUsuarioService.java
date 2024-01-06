@@ -76,7 +76,7 @@ public class SkillsUsuarioService {
 
     public SkillsUsuarioResponseDTO atualizar(Long id, SkillsUsuarioRequestDTO skillsUsuarioRequest) {
 
-        obterPorId(id);
+        SkillsUsuarioResponseDTO dadosBanco = obterPorId(id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String usuarioLogado = authentication.getName();
@@ -88,10 +88,15 @@ public class SkillsUsuarioService {
 
         Usuario usuario = optUsuario.get();
 
+        if (skillsUsuarioRequest.getSkills() == null) {
+            skillsUsuarioRequest.setSkills(dadosBanco.getSkills());
+        }
+
         SkillsUsuario skillsUsuario = modelMapper.map(skillsUsuarioRequest, SkillsUsuario.class);
         skillsUsuario.setId(id);
 
         skillsUsuario.setUsuario(usuario);
+
 
         return modelMapper.map(skillsUsuarioRepository.save(skillsUsuario), SkillsUsuarioResponseDTO.class);
     }

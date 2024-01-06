@@ -3,9 +3,9 @@ package br.com.neki.sistemaSkill.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,13 +41,13 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<SkillsUsuario> skills;
+    private Set<SkillsUsuario> skills;
 
     public Usuario() {
 
     }
 
-    public Usuario(Long id, String nome, String login, String senha, List<SkillsUsuario> skills) {
+    public Usuario(Long id, String nome, String login, String senha, Set<SkillsUsuario> skills) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -87,11 +87,11 @@ public class Usuario implements UserDetails {
         this.senha = senha;
     }
 
-    public List<SkillsUsuario> getSkills() {
+    public Set<SkillsUsuario> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<SkillsUsuario> skills) {
+    public void setSkills(Set<SkillsUsuario> skills) {
         this.skills = skills;
     }
 
