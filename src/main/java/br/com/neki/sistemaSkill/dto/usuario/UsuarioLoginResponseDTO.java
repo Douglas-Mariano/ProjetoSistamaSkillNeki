@@ -3,11 +3,11 @@ package br.com.neki.sistemaSkill.dto.usuario;
 public class UsuarioLoginResponseDTO  {
 
     private String token;
-    //private UsuarioResponseDTO usuario;
+    private UsuarioResponseDTO usuario;
 
     public UsuarioLoginResponseDTO(String token, UsuarioResponseDTO usuario) {
         this.token = token;
-       // this.usuario = usuario;
+        this.usuario = usuario;
     }
 
     public String getToken() {
@@ -18,12 +18,12 @@ public class UsuarioLoginResponseDTO  {
         this.token = token;
     }
 
-    // public UsuarioResponseDTO getUsuario() {
-    //     return usuario;
-    // }
+    public UsuarioResponseDTO getUsuario() {
+        return usuario;
+    }
 
-    // public void setUsuario(UsuarioResponseDTO usuario) {
-    //     this.usuario = usuario;
-    // }
+    public void setUsuario(UsuarioResponseDTO usuario) {
+        this.usuario = usuario;
+    }
    
 }
