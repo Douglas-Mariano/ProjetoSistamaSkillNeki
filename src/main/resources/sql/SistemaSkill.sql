@@ -1,4 +1,4 @@
-CREATE DATABASE sistemaSkill;
+CREATE DATABASE sistemaskill;
 
 CREATE SEQUENCE seq_usuario START 1;
 
